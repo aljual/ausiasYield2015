@@ -25,32 +25,26 @@
  * THE SOFTWARE.
  * 
  */
-function fCuestionarioRoutes() {
-    var icon = '<i class="fa fa-question fa-5x"></i>';
-    var fillDocumentoPageHeader = _.partial(html.getPageHeader, icon, 'Cuestionario', _);
-    var strClass = 'cuestionario';
-    var header = $('#broth_panel_heading');
-    var place = $('#broth_content');
 
-    Path.map("#/" + strClass + "/view/:id").to(function () {
-        //INSERTAMOS EL CSS
-        $('<link href="css/main/cuestyle.css" rel="stylesheet" type="text/css"/>').appendTo("head");
-        //Cambiar cabecera por titulo de cuestionario
-        header.empty().append(fillDocumentoPageHeader('View'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
-        ausiasFLOW.reset();
-        ausiasFLOW.initialize(cuestionarioView, place, strClass, 'cuestionarioview', strParam);
-        return false;
-    });
-    
-    //--------------------------------------------------------------------------    
-    Path.map("#/" + strClass + "/list(/:url)").to(function () {
-        $('<link href="css/main/cuestyle.css" rel="stylesheet" type="text/css"/>').appendTo("head");
-        header.empty().append(fillDocumentoPageHeader('List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
-        ausiasFLOW.reset();
-        ausiasFLOW.initialize(cuestionarioList, place, strClass, 'cuestionariolist', strParam);
-        return false;
-    });
+function setupLabel() {
+        //esto es para checkboxes
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){ 
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){ 
+                $(this).parent('label').addClass('c_on');
+            });                
+        };
+        
+        // y esto para radio buttons
+        if ($('.label_radio input').length) {
+            $('.label_radio').each(function(){ 
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){ 
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
 
-}
